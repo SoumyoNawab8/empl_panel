@@ -14,6 +14,7 @@ class dashboard extends Component {
 
     componentWillMount(){
         this.props.getEmployees();
+        document.title="Dashboard | Appiness Employlist";
     }
   
     render() {

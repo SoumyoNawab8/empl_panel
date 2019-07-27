@@ -11,6 +11,11 @@ class App extends Component {
       password:""
     }
   }
+
+  componentWillMount(){
+    document.title="Login | Appiness Employlist";
+  }
+
   render() {
     return (
       <div className="mid-class">
