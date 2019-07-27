@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import {BrowserRouter as Router,Route,Switch,Redirect} from 'react-router-dom';
 import App from './App';
 import dashboard from './dashboard';
+import { connect } from 'react-redux';
 
 const ProtectedRoute 
   = ({ isAllowed, ...props }) => (
@@ -11,7 +12,7 @@ const ProtectedRoute
   )
 
 
-export default class Routes extends Component {
+class Routes extends Component {
     constructor(props){
         super(props);
         this.state={
@@ -25,11 +26,21 @@ export default class Routes extends Component {
                 this.setState({isLoggedIn:true})
             }
         }
+        else{
+            if(this.props.state.logged){
+                this.setState({isLoggedIn:true})
+            }
+        }
     }
 
-    componentWillReceiveProps(){
+    componentWillReceiveProps(nextProps){
         if(localStorage.getItem('userLogs')!==null){
             if(JSON.parse(localStorage.getItem('userLogs')).logged){
+                this.setState({isLoggedIn:true})
+            }
+        }
+        else{
+            if(nextProps.state.logged){
                 this.setState({isLoggedIn:true})
             }
         }
@@ -46,3 +57,11 @@ export default class Routes extends Component {
         )
     }
 }
+
+const mapStateToProps=(state)=>{
+    state=state.usersReducers;
+   
+    return {state:state}
+  }
+
+export default connect(mapStateToProps)(Routes);

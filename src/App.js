@@ -16,6 +16,7 @@ class App extends Component {
     document.title="Login | Appiness Employlist";
   }
 
+
   render() {
     return (
       <div className="mid-class">
@@ -63,6 +64,7 @@ class App extends Component {
 
 const mapStateToProps=(state)=>{
   state=state.usersReducers;
+ 
   if(state.logged){
     state.routes.push('/dashboard');
   }
